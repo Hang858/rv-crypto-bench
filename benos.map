@@ -1,0 +1,405 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000080200000                . = 0x80200000
+
+.text.boot      0x0000000080200000       0x10
+ *(.text.boot)
+ .text.boot     0x0000000080200000       0x10 build_src/boot_s.o
+                0x0000000080200000                _start
+
+.text           0x0000000080200010     0x8280
+ *(.text)
+ .text          0x0000000080200010       0x3c build_src/kernel_c.o
+                0x0000000080200010                kernel_main
+ .text          0x000000008020004c      0x106 build_src/uart_c.o
+                0x000000008020004c                uart_send
+                0x0000000080200088                uart_send_string
+                0x00000000802000bc                uart_init
+ .text          0x0000000080200152        0x0 build_src/boot_s.o
+ .text          0x0000000080200152       0xaa build_src/test_cpucycles_c.o
+                0x0000000080200168                cpucycles_overhead
+ .text          0x00000000802001fc     0x3418 build_src/test_fips202_c.o
+                0x00000000802032b2                pqcrystals_dilithium_fips202_ref_shake128_init
+                0x00000000802032cc                pqcrystals_dilithium_fips202_ref_shake128_absorb
+                0x00000000802032fa                pqcrystals_dilithium_fips202_ref_shake128_finalize
+                0x0000000080203326                pqcrystals_dilithium_fips202_ref_shake128_squeeze
+                0x0000000080203354                pqcrystals_dilithium_fips202_ref_shake128_absorb_once
+                0x0000000080203380                pqcrystals_dilithium_fips202_ref_shake128_squeezeblocks
+                0x00000000802033a0                pqcrystals_dilithium_fips202_ref_shake256_init
+                0x00000000802033ba                pqcrystals_dilithium_fips202_ref_shake256_absorb
+                0x00000000802033e8                pqcrystals_dilithium_fips202_ref_shake256_finalize
+                0x0000000080203414                pqcrystals_dilithium_fips202_ref_shake256_squeeze
+                0x0000000080203442                pqcrystals_dilithium_fips202_ref_shake256_absorb_once
+                0x000000008020346e                pqcrystals_dilithium_fips202_ref_shake256_squeezeblocks
+                0x000000008020348e                pqcrystals_dilithium_fips202_ref_shake128
+                0x00000000802034ee                pqcrystals_dilithium_fips202_ref_shake256
+                0x0000000080203550                pqcrystals_dilithium_fips202_ref_sha3_256
+                0x00000000802035b2                pqcrystals_dilithium_fips202_ref_sha3_512
+ .text          0x0000000080203614      0x29a build_src/test_ntt_c.o
+                0x0000000080203614                pqcrystals_dilithium2_ref_ntt
+                0x000000008020370a                pqcrystals_dilithium2_ref_invntt_tomont
+ .text          0x00000000802038ae      0x622 build_src/test_packing_c.o
+                0x00000000802038ae                pqcrystals_dilithium2_ref_pack_pk
+                0x0000000080203924                pqcrystals_dilithium2_ref_unpack_pk
+                0x000000008020399a                pqcrystals_dilithium2_ref_pack_sk
+                0x0000000080203aec                pqcrystals_dilithium2_ref_unpack_sk
+                0x0000000080203c3e                pqcrystals_dilithium2_ref_pack_sig
+                0x0000000080203d46                pqcrystals_dilithium2_ref_unpack_sig
+ .text          0x0000000080203ed0     0x2178 build_src/test_poly_c.o
+                0x0000000080203ed0                pqcrystals_dilithium2_ref_poly_reduce
+                0x0000000080203f10                pqcrystals_dilithium2_ref_poly_caddq
+                0x0000000080203f50                pqcrystals_dilithium2_ref_poly_add
+                0x0000000080203f94                pqcrystals_dilithium2_ref_poly_sub
+                0x0000000080203fd8                pqcrystals_dilithium2_ref_poly_shiftl
+                0x0000000080204010                pqcrystals_dilithium2_ref_poly_ntt
+                0x0000000080204026                pqcrystals_dilithium2_ref_poly_invntt_tomont
+                0x000000008020403c                pqcrystals_dilithium2_ref_poly_pointwise_montgomery
+                0x00000000802040c8                pqcrystals_dilithium2_ref_poly_power2round
+                0x0000000080204118                pqcrystals_dilithium2_ref_poly_decompose
+                0x0000000080204168                pqcrystals_dilithium2_ref_poly_make_hint
+                0x00000000802041ce                pqcrystals_dilithium2_ref_poly_use_hint
+                0x000000008020421e                pqcrystals_dilithium2_ref_poly_chknorm
+                0x0000000080204324                pqcrystals_dilithium2_ref_poly_uniform
+                0x0000000080204504                pqcrystals_dilithium2_ref_poly_uniform_eta
+                0x00000000802045a8                pqcrystals_dilithium2_ref_poly_uniform_gamma1
+                0x00000000802045ee                pqcrystals_dilithium2_ref_poly_challenge
+                0x00000000802047a8                pqcrystals_dilithium2_ref_polyeta_pack
+                0x00000000802049ae                pqcrystals_dilithium2_ref_polyeta_unpack
+                0x0000000080204c4c                pqcrystals_dilithium2_ref_polyt1_pack
+                0x0000000080204d8c                pqcrystals_dilithium2_ref_polyt1_unpack
+                0x0000000080204eb4                pqcrystals_dilithium2_ref_polyt0_pack
+                0x00000000802052dc                pqcrystals_dilithium2_ref_polyt0_unpack
+                0x0000000080205936                pqcrystals_dilithium2_ref_polyz_pack
+                0x0000000080205b54                pqcrystals_dilithium2_ref_polyz_unpack
+                0x0000000080205edc                pqcrystals_dilithium2_ref_polyw1_pack
+ .text          0x0000000080206048      0x6da build_src/test_polyvec_c.o
+                0x0000000080206048                pqcrystals_dilithium2_ref_polyvec_matrix_expand
+                0x00000000802060b2                pqcrystals_dilithium2_ref_polyvec_matrix_pointwise_montgomery
+                0x00000000802060f2                pqcrystals_dilithium2_ref_polyvecl_uniform_eta
+                0x000000008020613c                pqcrystals_dilithium2_ref_polyvecl_uniform_gamma1
+                0x0000000080206192                pqcrystals_dilithium2_ref_polyvecl_reduce
+                0x00000000802061c2                pqcrystals_dilithium2_ref_polyvecl_add
+                0x000000008020620c                pqcrystals_dilithium2_ref_polyvecl_ntt
+                0x000000008020623c                pqcrystals_dilithium2_ref_polyvecl_invntt_tomont
+                0x000000008020626c                pqcrystals_dilithium2_ref_polyvecl_pointwise_poly_montgomery
+                0x00000000802062ae                pqcrystals_dilithium2_ref_polyvecl_pointwise_acc_montgomery
+                0x0000000080206322                pqcrystals_dilithium2_ref_polyvecl_chknorm
+                0x000000008020635e                pqcrystals_dilithium2_ref_polyveck_uniform_eta
+                0x00000000802063a8                pqcrystals_dilithium2_ref_polyveck_reduce
+                0x00000000802063d8                pqcrystals_dilithium2_ref_polyveck_caddq
+                0x0000000080206408                pqcrystals_dilithium2_ref_polyveck_add
+                0x0000000080206452                pqcrystals_dilithium2_ref_polyveck_sub
+                0x000000008020649c                pqcrystals_dilithium2_ref_polyveck_shiftl
+                0x00000000802064cc                pqcrystals_dilithium2_ref_polyveck_ntt
+                0x00000000802064fc                pqcrystals_dilithium2_ref_polyveck_invntt_tomont
+                0x000000008020652c                pqcrystals_dilithium2_ref_polyveck_pointwise_poly_montgomery
+                0x000000008020656e                pqcrystals_dilithium2_ref_polyveck_chknorm
+                0x00000000802065aa                pqcrystals_dilithium2_ref_polyveck_power2round
+                0x00000000802065f4                pqcrystals_dilithium2_ref_polyveck_decompose
+                0x000000008020663e                pqcrystals_dilithium2_ref_polyveck_make_hint
+                0x0000000080206692                pqcrystals_dilithium2_ref_polyveck_use_hint
+                0x00000000802066dc                pqcrystals_dilithium2_ref_polyveck_pack_w1
+ .text          0x0000000080206722       0xa4 build_src/test_randombytes_c.o
+                0x0000000080206722                randombytes
+ .text          0x00000000802067c6       0xd8 build_src/test_reduce_c.o
+                0x00000000802067c6                pqcrystals_dilithium2_ref_montgomery_reduce
+                0x0000000080206838                pqcrystals_dilithium2_ref_reduce32
+                0x0000000080206862                pqcrystals_dilithium2_ref_caddq
+                0x0000000080206882                pqcrystals_dilithium2_ref_freeze
+ .text          0x000000008020689e      0x126 build_src/test_rounding_c.o
+                0x000000008020689e                pqcrystals_dilithium2_ref_power2round
+                0x00000000802068c4                pqcrystals_dilithium2_ref_decompose
+                0x0000000080206940                pqcrystals_dilithium2_ref_make_hint
+                0x000000008020697a                pqcrystals_dilithium2_ref_use_hint
+ .text          0x00000000802069c4     0x11f4 build_src/test_sign_c.o
+                0x00000000802069c4                pqcrystals_dilithium2_ref_keypair
+                0x0000000080206c94                pqcrystals_dilithium2_ref_signature_internal
+                0x00000000802074a4                pqcrystals_dilithium2_ref_signature
+                0x0000000080207538                pqcrystals_dilithium2_ref
+                0x00000000802075b6                pqcrystals_dilithium2_ref_verify_internal
+                0x0000000080207a80                pqcrystals_dilithium2_ref_verify
+                0x0000000080207b02                pqcrystals_dilithium2_ref_open
+ .text          0x0000000080207bb8      0x3be build_src/test_speed_print_c.o
+                0x0000000080207e4e                print_results
+ .text          0x0000000080207f76       0xb0 build_src/test_symmetric-shake_c.o
+                0x0000000080207f76                pqcrystals_dilithium2_ref_dilithium_shake128_stream_init
+                0x0000000080207fce                pqcrystals_dilithium2_ref_dilithium_shake256_stream_init
+ .text          0x0000000080208026      0x26a build_src/test_test_demo_c.o
+                0x000000008020803c                test_demo
+
+.rodata         0x0000000080208290      0x560
+ *(.rodata)
+ .rodata        0x0000000080208290       0x12 build_src/kernel_c.o
+ *fill*         0x00000000802082a2        0x6 
+ .rodata        0x00000000802082a8       0xc0 build_src/test_fips202_c.o
+                0x00000000802082a8                pqcrystals_dilithium_fips202_ref_KeccakF_RoundConstants
+ .rodata        0x0000000080208368      0x400 build_src/test_ntt_c.o
+ .rodata        0x0000000080208768       0x66 build_src/test_speed_print_c.o
+ *fill*         0x00000000802087ce        0x2 
+ .rodata        0x00000000802087d0       0x20 build_src/test_test_demo_c.o
+
+.rela.dyn       0x00000000802087f0        0x0
+ .rela.text     0x00000000802087f0        0x0 build_src/kernel_c.o
+
+.data           0x0000000080209000    0x10000
+ *(.data)
+ .data          0x0000000080209000        0x0 build_src/kernel_c.o
+ .data          0x0000000080209000        0x0 build_src/uart_c.o
+ .data          0x0000000080209000    0x10000 build_src/boot_s.o
+                0x0000000080209000                stacks_start
+ .data          0x0000000080219000        0x0 build_src/test_cpucycles_c.o
+ .data          0x0000000080219000        0x0 build_src/test_fips202_c.o
+ .data          0x0000000080219000        0x0 build_src/test_ntt_c.o
+ .data          0x0000000080219000        0x0 build_src/test_packing_c.o
+ .data          0x0000000080219000        0x0 build_src/test_poly_c.o
+ .data          0x0000000080219000        0x0 build_src/test_polyvec_c.o
+ .data          0x0000000080219000        0x0 build_src/test_randombytes_c.o
+ .data          0x0000000080219000        0x0 build_src/test_reduce_c.o
+ .data          0x0000000080219000        0x0 build_src/test_rounding_c.o
+ .data          0x0000000080219000        0x0 build_src/test_sign_c.o
+ .data          0x0000000080219000        0x0 build_src/test_speed_print_c.o
+ .data          0x0000000080219000        0x0 build_src/test_symmetric-shake_c.o
+ .data          0x0000000080219000        0x0 build_src/test_test_demo_c.o
+
+.sdata          0x0000000080219000        0xc
+ .sdata         0x0000000080219000        0x4 build_src/uart_c.o
+ .sdata         0x0000000080219004        0x4 build_src/test_randombytes_c.o
+ .sdata         0x0000000080219008        0x4 build_src/test_speed_print_c.o
+                0x0000000080219010                . = ALIGN (0x8)
+                0x0000000080219010                bss_begin = .
+
+.bss            0x0000000080219010       0xa0
+ *(.bss*)
+ .bss           0x0000000080219010        0x0 build_src/kernel_c.o
+ .bss           0x0000000080219010        0x0 build_src/uart_c.o
+ .bss           0x0000000080219010        0x0 build_src/boot_s.o
+ .bss           0x0000000080219010        0x0 build_src/test_cpucycles_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_fips202_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_ntt_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_packing_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_poly_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_polyvec_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_randombytes_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_reduce_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_rounding_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_sign_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_speed_print_c.o
+ .bss           0x0000000080219010        0x0 build_src/test_symmetric-shake_c.o
+ .bss           0x0000000080219010       0xa0 build_src/test_test_demo_c.o
+                0x0000000080219010                t
+                0x00000000802190b0                bss_end = .
+LOAD build_src/kernel_c.o
+LOAD build_src/uart_c.o
+LOAD build_src/boot_s.o
+LOAD build_src/test_cpucycles_c.o
+LOAD build_src/test_fips202_c.o
+LOAD build_src/test_ntt_c.o
+LOAD build_src/test_packing_c.o
+LOAD build_src/test_poly_c.o
+LOAD build_src/test_polyvec_c.o
+LOAD build_src/test_randombytes_c.o
+LOAD build_src/test_reduce_c.o
+LOAD build_src/test_rounding_c.o
+LOAD build_src/test_sign_c.o
+LOAD build_src/test_speed_print_c.o
+LOAD build_src/test_symmetric-shake_c.o
+LOAD build_src/test_test_demo_c.o
+OUTPUT(build_src/benos.elf elf32-littleriscv)
+
+.debug_info     0x0000000000000000     0x3adf
+ .debug_info    0x0000000000000000       0x7c build_src/kernel_c.o
+ .debug_info    0x000000000000007c      0x1b3 build_src/uart_c.o
+ .debug_info    0x000000000000022f       0x26 build_src/boot_s.o
+ .debug_info    0x0000000000000255       0xe3 build_src/test_cpucycles_c.o
+ .debug_info    0x0000000000000338      0xc7d build_src/test_fips202_c.o
+ .debug_info    0x0000000000000fb5      0x1aa build_src/test_ntt_c.o
+ .debug_info    0x000000000000115f      0x3cb build_src/test_packing_c.o
+ .debug_info    0x000000000000152a      0xada build_src/test_poly_c.o
+ .debug_info    0x0000000000002004      0x861 build_src/test_polyvec_c.o
+ .debug_info    0x0000000000002865       0xe6 build_src/test_randombytes_c.o
+ .debug_info    0x000000000000294b      0x12c build_src/test_reduce_c.o
+ .debug_info    0x0000000000002a77      0x17e build_src/test_rounding_c.o
+ .debug_info    0x0000000000002bf5      0x8bb build_src/test_sign_c.o
+ .debug_info    0x00000000000034b0      0x26e build_src/test_speed_print_c.o
+ .debug_info    0x000000000000371e      0x17f build_src/test_symmetric-shake_c.o
+ .debug_info    0x000000000000389d      0x242 build_src/test_test_demo_c.o
+
+.debug_abbrev   0x0000000000000000      0xf97
+ .debug_abbrev  0x0000000000000000       0x76 build_src/kernel_c.o
+ .debug_abbrev  0x0000000000000076       0xcc build_src/uart_c.o
+ .debug_abbrev  0x0000000000000142       0x14 build_src/boot_s.o
+ .debug_abbrev  0x0000000000000156       0x93 build_src/test_cpucycles_c.o
+ .debug_abbrev  0x00000000000001e9      0x1cc build_src/test_fips202_c.o
+ .debug_abbrev  0x00000000000003b5       0xc4 build_src/test_ntt_c.o
+ .debug_abbrev  0x0000000000000479      0x102 build_src/test_packing_c.o
+ .debug_abbrev  0x000000000000057b      0x1ec build_src/test_poly_c.o
+ .debug_abbrev  0x0000000000000767      0x180 build_src/test_polyvec_c.o
+ .debug_abbrev  0x00000000000008e7       0xab build_src/test_randombytes_c.o
+ .debug_abbrev  0x0000000000000992       0xb3 build_src/test_reduce_c.o
+ .debug_abbrev  0x0000000000000a45       0xcd build_src/test_rounding_c.o
+ .debug_abbrev  0x0000000000000b12      0x18d build_src/test_sign_c.o
+ .debug_abbrev  0x0000000000000c9f      0x12c build_src/test_speed_print_c.o
+ .debug_abbrev  0x0000000000000dcb       0xd3 build_src/test_symmetric-shake_c.o
+ .debug_abbrev  0x0000000000000e9e       0xf9 build_src/test_test_demo_c.o
+
+.debug_aranges  0x0000000000000000      0x200
+ .debug_aranges
+                0x0000000000000000       0x20 build_src/kernel_c.o
+ .debug_aranges
+                0x0000000000000020       0x20 build_src/uart_c.o
+ .debug_aranges
+                0x0000000000000040       0x20 build_src/boot_s.o
+ .debug_aranges
+                0x0000000000000060       0x20 build_src/test_cpucycles_c.o
+ .debug_aranges
+                0x0000000000000080       0x20 build_src/test_fips202_c.o
+ .debug_aranges
+                0x00000000000000a0       0x20 build_src/test_ntt_c.o
+ .debug_aranges
+                0x00000000000000c0       0x20 build_src/test_packing_c.o
+ .debug_aranges
+                0x00000000000000e0       0x20 build_src/test_poly_c.o
+ .debug_aranges
+                0x0000000000000100       0x20 build_src/test_polyvec_c.o
+ .debug_aranges
+                0x0000000000000120       0x20 build_src/test_randombytes_c.o
+ .debug_aranges
+                0x0000000000000140       0x20 build_src/test_reduce_c.o
+ .debug_aranges
+                0x0000000000000160       0x20 build_src/test_rounding_c.o
+ .debug_aranges
+                0x0000000000000180       0x20 build_src/test_sign_c.o
+ .debug_aranges
+                0x00000000000001a0       0x20 build_src/test_speed_print_c.o
+ .debug_aranges
+                0x00000000000001c0       0x20 build_src/test_symmetric-shake_c.o
+ .debug_aranges
+                0x00000000000001e0       0x20 build_src/test_test_demo_c.o
+
+.debug_line     0x0000000000000000     0x7605
+ .debug_line    0x0000000000000000       0x85 build_src/kernel_c.o
+ .debug_line    0x0000000000000085      0x1f6 build_src/uart_c.o
+ .debug_line    0x000000000000027b       0x4b build_src/boot_s.o
+ .debug_line    0x00000000000002c6       0xfd build_src/test_cpucycles_c.o
+ .debug_line    0x00000000000003c3     0x1993 build_src/test_fips202_c.o
+ .debug_line    0x0000000000001d56      0x3b6 build_src/test_ntt_c.o
+ .debug_line    0x000000000000210c      0x9f3 build_src/test_packing_c.o
+ .debug_line    0x0000000000002aff     0x312f build_src/test_poly_c.o
+ .debug_line    0x0000000000005c2e      0x813 build_src/test_polyvec_c.o
+ .debug_line    0x0000000000006441      0x112 build_src/test_randombytes_c.o
+ .debug_line    0x0000000000006553      0x137 build_src/test_reduce_c.o
+ .debug_line    0x000000000000668a      0x1f3 build_src/test_rounding_c.o
+ .debug_line    0x000000000000687d      0x709 build_src/test_sign_c.o
+ .debug_line    0x0000000000006f86      0x3da build_src/test_speed_print_c.o
+ .debug_line    0x0000000000007360       0xd3 build_src/test_symmetric-shake_c.o
+ .debug_line    0x0000000000007433      0x1d2 build_src/test_test_demo_c.o
+
+.debug_str      0x0000000000000000     0x1424
+ .debug_str     0x0000000000000000       0xa6 build_src/kernel_c.o
+                                         0xab (size before relaxing)
+ .debug_str     0x00000000000000a6       0x56 build_src/uart_c.o
+                                         0xe3 (size before relaxing)
+ .debug_str     0x00000000000000fc       0x19 build_src/boot_s.o
+                                         0x34 (size before relaxing)
+ .debug_str     0x0000000000000115       0x7e build_src/test_cpucycles_c.o
+                                        0x130 (size before relaxing)
+ .debug_str     0x0000000000000193      0x414 build_src/test_fips202_c.o
+                                        0x50d (size before relaxing)
+ .debug_str     0x00000000000005a7       0x67 build_src/test_ntt_c.o
+                                        0x15b (size before relaxing)
+ .debug_str     0x000000000000060e      0x106 build_src/test_packing_c.o
+                                        0x1fa (size before relaxing)
+ .debug_str     0x0000000000000714      0x47d build_src/test_poly_c.o
+                                        0x5a1 (size before relaxing)
+ .debug_str     0x0000000000000b91      0x4d0 build_src/test_polyvec_c.o
+                                        0x5f6 (size before relaxing)
+ .debug_str     0x0000000000001061       0x24 build_src/test_randombytes_c.o
+                                        0x12c (size before relaxing)
+ .debug_str     0x0000000000001085       0xa3 build_src/test_reduce_c.o
+                                        0x197 (size before relaxing)
+ .debug_str     0x0000000000001128       0xa6 build_src/test_rounding_c.o
+                                        0x197 (size before relaxing)
+ .debug_str     0x00000000000011ce      0x141 build_src/test_sign_c.o
+                                        0x28a (size before relaxing)
+ .debug_str     0x000000000000130f       0x67 build_src/test_speed_print_c.o
+                                        0x177 (size before relaxing)
+ .debug_str     0x0000000000001376       0x8e build_src/test_symmetric-shake_c.o
+                                        0x1aa (size before relaxing)
+ .debug_str     0x0000000000001404       0x20 build_src/test_test_demo_c.o
+                                        0x156 (size before relaxing)
+
+.comment        0x0000000000000000        0xf
+ .comment       0x0000000000000000        0xf build_src/kernel_c.o
+                                         0x10 (size before relaxing)
+ .comment       0x000000000000000f       0x10 build_src/uart_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_cpucycles_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_fips202_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_ntt_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_packing_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_poly_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_polyvec_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_randombytes_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_reduce_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_rounding_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_sign_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_speed_print_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_symmetric-shake_c.o
+ .comment       0x000000000000000f       0x10 build_src/test_test_demo_c.o
+
+.riscv.attributes
+                0x0000000000000000       0x2b
+ .riscv.attributes
+                0x0000000000000000       0x2b build_src/kernel_c.o
+ .riscv.attributes
+                0x000000000000002b       0x2b build_src/uart_c.o
+ .riscv.attributes
+                0x0000000000000056       0x29 build_src/boot_s.o
+ .riscv.attributes
+                0x000000000000007f       0x2b build_src/test_cpucycles_c.o
+ .riscv.attributes
+                0x00000000000000aa       0x2b build_src/test_fips202_c.o
+ .riscv.attributes
+                0x00000000000000d5       0x2b build_src/test_ntt_c.o
+ .riscv.attributes
+                0x0000000000000100       0x2b build_src/test_packing_c.o
+ .riscv.attributes
+                0x000000000000012b       0x2b build_src/test_poly_c.o
+ .riscv.attributes
+                0x0000000000000156       0x2b build_src/test_polyvec_c.o
+ .riscv.attributes
+                0x0000000000000181       0x2b build_src/test_randombytes_c.o
+ .riscv.attributes
+                0x00000000000001ac       0x2b build_src/test_reduce_c.o
+ .riscv.attributes
+                0x00000000000001d7       0x2b build_src/test_rounding_c.o
+ .riscv.attributes
+                0x0000000000000202       0x2b build_src/test_sign_c.o
+ .riscv.attributes
+                0x000000000000022d       0x2b build_src/test_speed_print_c.o
+ .riscv.attributes
+                0x0000000000000258       0x2b build_src/test_symmetric-shake_c.o
+ .riscv.attributes
+                0x0000000000000283       0x2b build_src/test_test_demo_c.o
+
+.debug_frame    0x0000000000000000      0xf10
+ .debug_frame   0x0000000000000000       0x28 build_src/kernel_c.o
+ .debug_frame   0x0000000000000028       0x5c build_src/uart_c.o
+ .debug_frame   0x0000000000000084       0x44 build_src/test_cpucycles_c.o
+ .debug_frame   0x00000000000000c8      0x36c build_src/test_fips202_c.o
+ .debug_frame   0x0000000000000434       0x94 build_src/test_ntt_c.o
+ .debug_frame   0x00000000000004c8       0xc8 build_src/test_packing_c.o
+ .debug_frame   0x0000000000000590      0x31c build_src/test_poly_c.o
+ .debug_frame   0x00000000000008ac      0x2ec build_src/test_polyvec_c.o
+ .debug_frame   0x0000000000000b98       0x28 build_src/test_randombytes_c.o
+ .debug_frame   0x0000000000000bc0       0x74 build_src/test_reduce_c.o
+ .debug_frame   0x0000000000000c34       0x74 build_src/test_rounding_c.o
+ .debug_frame   0x0000000000000ca8      0x10c build_src/test_sign_c.o
+ .debug_frame   0x0000000000000db4       0xc4 build_src/test_speed_print_c.o
+ .debug_frame   0x0000000000000e78       0x48 build_src/test_symmetric-shake_c.o
+ .debug_frame   0x0000000000000ec0       0x50 build_src/test_test_demo_c.o
